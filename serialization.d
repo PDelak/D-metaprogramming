@@ -5,7 +5,7 @@ import std.range;
 
 interface Serializable { }
 
-string genFields(T)()
+string genSerializeMethod(T)()
 {
   string s;
   s ~= "void serialize(";
@@ -40,7 +40,7 @@ string generateSerializer(T)()
   string s;
   foreach (e ; TL) {
   	static if(e.stringof == "Serializable") {  		
-  		s = genFields!T;
+  		s = genSerializeMethod!T;
   	}
   }
   return s;
@@ -53,6 +53,7 @@ class B1 : Serializable
    int x;
    int y;
    int z;
+   int c;
    this() { x = 0; y = 0; z = 0; }
    this(int _x, int _y, int _z) { x = _x; y = _y; z = _z; }
 }
